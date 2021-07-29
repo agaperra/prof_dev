@@ -18,11 +18,11 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="wrap_content"
         style="@style/BaseTextStyle"
-        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+        android:layout_marginStart="@dimen/margin_medium"
+        tools:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
 
     <View xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

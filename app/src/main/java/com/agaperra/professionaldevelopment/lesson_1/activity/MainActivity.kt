@@ -1,5 +1,6 @@
 package com.agaperra.professionaldevelopment.lesson_1.activity
 import android.os.Bundle
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -87,6 +88,7 @@ class MainActivity : BaseActivity<AppState>() {
         success_linear_layout.visibility = VISIBLE
         loading_frame_layout.visibility = GONE
         error_linear_layout.visibility = GONE
+        first_text.visibility = GONE
     }
 
     private fun showViewLoading() {
