@@ -1,12 +1,12 @@
 package com.agaperra.professionaldevelopment.lesson_1.datasource
 
 import com.agaperra.professionaldevelopment.lesson_1.model.data.DataModel
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitImplementation : DictionaryDataSource<List<DataModel>> {
@@ -23,7 +23,7 @@ class RetrofitImplementation : DictionaryDataSource<List<DataModel>> {
         return Retrofit.Builder()
             .baseUrl(BASE_URL_LOCATIONS)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .client(createOkHttpClient(interceptor))
             .build()
     }

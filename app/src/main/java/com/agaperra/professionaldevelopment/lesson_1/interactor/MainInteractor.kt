@@ -3,7 +3,8 @@ package com.agaperra.professionaldevelopment.lesson_1.interactor
 import com.agaperra.professionaldevelopment.lesson_1.AppState
 import com.agaperra.professionaldevelopment.lesson_1.model.data.DataModel
 import com.agaperra.professionaldevelopment.lesson_1.repository.DictionaryRepository
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
+
 
 class MainInteractor(
     private val remoteRepository: DictionaryRepository<List<DataModel>>,

@@ -7,8 +7,8 @@ import com.agaperra.professionaldevelopment.lesson_1.interactor.MainInteractor
 import com.agaperra.professionaldevelopment.lesson_1.repository.MainRepository
 import com.agaperra.professionaldevelopment.lesson_1.rx.SchedulerProvider
 import com.agaperra.professionaldevelopment.lesson_1.view.DictionaryView
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.observers.DisposableObserver
 
 class MainPresenter<T : AppState, V : DictionaryView>(
 
