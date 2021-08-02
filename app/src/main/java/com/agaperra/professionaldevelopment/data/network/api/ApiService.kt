@@ -9,6 +9,7 @@ interface ApiService {
 
     @GET(value = "/api/v1/dicservice.json/lookup")
     fun getWord(
+        @Query("key") key :String,
         @Query("lang") language: String,
         @Query("text") word: String
     ) : Single<DictionaryResponse>

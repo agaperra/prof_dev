@@ -12,8 +12,8 @@ class DictionaryRepositoryImpl @Inject constructor(
 ) :
     DictionaryRepository {
 
-    override fun getWord(languageCode: String, query: String) =
-        remoteDatasource.getData(languageCode, query)
+    override fun getWord(key:String, languageCode: String, query: String) =
+        remoteDatasource.getData(key, languageCode, query)
 
     override fun fetchWord(word: Word, meanings: List<Meaning>) =
         localDataSource.fetchData(word, meanings)

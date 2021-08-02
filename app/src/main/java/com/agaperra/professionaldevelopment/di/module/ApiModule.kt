@@ -3,7 +3,6 @@ package com.agaperra.professionaldevelopment.di.module
 import androidx.viewbinding.BuildConfig
 import com.agaperra.professionaldevelopment.data.network.api.ApiService
 import com.agaperra.professionaldevelopment.di.DaggerConstants
-import com.agaperra.professionaldevelopment.utils.ApiInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -26,7 +25,6 @@ class ApiModule {
         OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
-            .addInterceptor(ApiInterceptor)
             .build()
     } else {
         OkHttpClient.Builder().build()

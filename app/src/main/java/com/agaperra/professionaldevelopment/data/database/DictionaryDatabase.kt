@@ -6,7 +6,7 @@ import com.agaperra.professionaldevelopment.data.database.entity.Meaning
 import com.agaperra.professionaldevelopment.data.database.entity.Word
 
 
-@Database(entities = [Meaning::class, Word::class], version = 1)
+@Database(entities = [Meaning::class, Word::class], version = 1, exportSchema = false)
 abstract class DictionaryDatabase : RoomDatabase() {
     abstract fun dictionaryDao(): DictionaryDao
 }

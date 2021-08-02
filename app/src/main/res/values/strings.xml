@@ -19,5 +19,7 @@
     <string name="main_background">main background</string>
     <string name="options_button">Options button</string>
     <string name="easy_words">Easy Words</string>
-    <string name="error_message">Sorry, we could not find your word</string>
+    <string name="error_message">The word was not found</string>
+<!--    <string name="yandex">Реализовано с помощью сервиса «Яндекс.Словарь»</string>-->
+    <string name="yandex"><a href="https://tech.yandex.ru/dictionary">Реализовано с помощью сервиса «Яндекс.Словарь»</a></string>
 </resources>

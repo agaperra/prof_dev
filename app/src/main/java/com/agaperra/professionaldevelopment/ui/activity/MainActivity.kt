@@ -1,19 +1,18 @@
 package com.agaperra.professionaldevelopment.ui.activity
 
-import android.media.MediaPlayer
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
-import com.agaperra.professionaldevelopment.lesson_2.Extensions.disable
-import com.agaperra.professionaldevelopment.lesson_2.Extensions.enable
-import com.agaperra.professionaldevelopment.lesson_2.Extensions.hide
-import com.agaperra.professionaldevelopment.lesson_2.Extensions.show
+import com.agaperra.professionaldevelopment.utils.Extensions.hide
+import com.agaperra.professionaldevelopment.utils.Extensions.show
 import com.agaperra.professionaldevelopment.MainApplication
+import com.agaperra.professionaldevelopment.R
 import com.agaperra.professionaldevelopment.data.state.AppState
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
 import com.agaperra.professionaldevelopment.ui.base.BaseActivity
-import com.google.android.material.tabs.TabLayout
 import javax.inject.Inject
 
 
@@ -36,6 +35,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        val mLink = binding.yandex
+        mLink.movementMethod = LinkMovementMethod.getInstance()
 
         initialize()
         setupListeners()
@@ -68,6 +69,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private fun setResult(dataModel: AppState.Success) {
         binding.tvWord.text = dataModel.data.word.word
+        println(dataModel.data.meanings)
         meaningAdapter.updateList(dataModel.data.meanings)
         hideLoading()
 
