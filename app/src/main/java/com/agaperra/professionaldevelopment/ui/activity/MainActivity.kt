@@ -3,17 +3,15 @@ package com.agaperra.professionaldevelopment.ui.activity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
-import com.agaperra.professionaldevelopment.utils.Extensions.hide
-import com.agaperra.professionaldevelopment.utils.Extensions.show
 import com.agaperra.professionaldevelopment.MainApplication
-import com.agaperra.professionaldevelopment.R
 import com.agaperra.professionaldevelopment.data.state.AppState
+import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
 import com.agaperra.professionaldevelopment.ui.base.BaseActivity
+import com.agaperra.professionaldevelopment.utils.Extensions.hide
+import com.agaperra.professionaldevelopment.utils.Extensions.show
 import javax.inject.Inject
 
 
@@ -71,9 +69,16 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private fun setResult(dataModel: AppState.Success) {
         binding.tvWord.text = dataModel.data.word.word
-        println(dataModel)
-        meaningAdapter.updateList(dataModel.data.meanings)
-        hideLoading()
+        if(dataModel.data.meanings.isNotEmpty()) {
+            meaningAdapter.updateList(dataModel.data.meanings)
+            hideLoading()
+        }
+        else{
+            binding.progressIndicator.hide()
+            binding.groupResult.show()
+            binding.meanings.hide()
+            binding.rvMeanings.hide()
+        }
 
     }
 

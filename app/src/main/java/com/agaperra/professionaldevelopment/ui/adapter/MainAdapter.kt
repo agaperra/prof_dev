@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.agaperra.professionaldevelopment.databinding.ItemMeaningBinding
 import com.agaperra.professionaldevelopment.data.database.entity.Meaning
+import com.agaperra.professionaldevelopment.databinding.ItemMeaningBinding
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.MeaningViewHolderImpl>() {
 
@@ -32,6 +32,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MeaningViewHolderImpl>() {
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newItems: List<Meaning>) {
         itemList.clear()
+        println(newItems)
         itemList.addAll(newItems)
         notifyDataSetChanged()
     }

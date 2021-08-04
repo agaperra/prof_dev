@@ -13,7 +13,6 @@ object Converter {
                     meanings.add(Meaning(response.def[0].text, mean.text))
                 }
             }
-        println(meanings)
         return meanings
     }
 

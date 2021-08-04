@@ -6,6 +6,9 @@
     <string name="empty_server_response_on_success">Couldn\'t find any definitions</string>
     <string name="button_search">Search</string>
     <string name="search_hint">Enter word…</string>
+    <string name="word">Word</string>
+    <string name="translate">Translate</string>
+    <string name="meanings">Meanings</string>
     <string name="delete_description">X</string>
     <string name="image_stub">image</string>
     <string name="dialog_button_cancel">Cancel</string>
@@ -20,6 +23,5 @@
     <string name="options_button">Options button</string>
     <string name="easy_words">Easy Words</string>
     <string name="error_message">The word was not found</string>
-<!--    <string name="yandex">Реализовано с помощью сервиса «Яндекс.Словарь»</string>-->
-    <string name="yandex"><a href="https://tech.yandex.ru/dictionary">Реализовано с помощью сервиса «Яндекс.Словарь»</a></string>
+    <string name="yandex"><a href="https://tech.yandex.ru/dictionary">Implemented using the service «Yandex.Dictionary»</a></string>
 </resources>
