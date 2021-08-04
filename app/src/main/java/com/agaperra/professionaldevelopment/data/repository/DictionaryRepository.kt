@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Single
 
 interface DictionaryRepository {
 
-    fun getWord(key: String, languageCode: String, query: String): Single<DictionaryResponse>
-    fun getWord(word: String): Single<Word_Meaning>
-    fun fetchWord(word: Word, meanings: List<Meaning>): Single<Word_Meaning>
+    suspend fun getWord(key: String, languageCode: String, query: String): Single<DictionaryResponse>
+    suspend fun getWord(word: String): Single<Word_Meaning>
+    suspend fun fetchWord(word: Word, meanings: List<Meaning>): Single<Word_Meaning>
 }
