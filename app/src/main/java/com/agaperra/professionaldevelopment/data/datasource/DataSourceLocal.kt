@@ -13,10 +13,12 @@ class DataSourceLocal @Inject constructor(
 
     private val wordsDao = db.dictionaryDao()
 
-    override fun fetchData(word: Word, meanings: List<Meaning>): Single<Word_Meaning> =
-        wordsDao.insertWord(word = word)
+    override fun fetchData(word: Word, meanings: List<Meaning>): Single<Word_Meaning> {
+        return wordsDao.insertWord(word = word)
             .andThen(wordsDao.insertMeanings(meanings))
             .andThen(wordsDao.getWordWithMeanings(word.word))
+    }
+
 
     override fun getData(word: String): Single<Word_Meaning> =
         wordsDao.getWordWithMeanings(word)

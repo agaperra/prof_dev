@@ -7,9 +7,9 @@ import com.agaperra.professionaldevelopment.data.network.model.DictionaryRespons
 import io.reactivex.rxjava3.core.Single
 
 
-interface DictionaryRepository  {
+interface DictionaryRepository {
 
-    fun getWord(key:String, languageCode: String, query: String): Single<DictionaryResponse>
+    fun getWord(key: String, languageCode: String, query: String): Single<DictionaryResponse>
     fun getWord(word: String): Single<Word_Meaning>
     fun fetchWord(word: Word, meanings: List<Meaning>): Single<Word_Meaning>
 }

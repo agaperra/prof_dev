@@ -5,6 +5,7 @@ import android.text.method.LinkMovementMethod
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
 import com.agaperra.professionaldevelopment.utils.Extensions.hide
 import com.agaperra.professionaldevelopment.utils.Extensions.show
@@ -55,6 +56,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         model.subscribe().observe(this, ::renderData)
 
         binding.rvMeanings.apply {
+            layoutManager = LinearLayoutManager(context)
             meaningAdapter = MainAdapter()
             adapter = meaningAdapter
         }
@@ -69,7 +71,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private fun setResult(dataModel: AppState.Success) {
         binding.tvWord.text = dataModel.data.word.word
-        println(dataModel.data.meanings)
+        println(dataModel)
         meaningAdapter.updateList(dataModel.data.meanings)
         hideLoading()
 
