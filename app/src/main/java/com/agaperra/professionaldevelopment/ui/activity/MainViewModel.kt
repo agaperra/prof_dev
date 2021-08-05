@@ -21,19 +21,25 @@ class MainViewModel @Inject constructor(
             .subscribeOn(schedulers.io())
             .observeOn(schedulers.ui())
             .doOnSubscribe {
-                liveDataForViewToObserve.value = AppState.Loading(null)}
+                liveDataForViewToObserve.value = AppState.Loading(null)
+            }
             .subscribeBy(
                 onSuccess = {
                     appState = it
                     liveDataForViewToObserve.value = appState
                 },
                 onError = {
-                    liveDataForViewToObserve.value = AppState.Error(it) }
+                    liveDataForViewToObserve.value = AppState.Error(it)
+                }
             )
         return super.getData(word)
     }
 
     fun subscribe() = liveDataForViewToObserve
+
+    override fun handleError(error: Throwable) {
+        liveDataForViewToObserve.postValue(AppState.Error(error))
+    }
 
 
 }

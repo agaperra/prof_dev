@@ -22,7 +22,6 @@ class MainInteractor @Inject constructor(
                 .onErrorResumeNext { error ->
                     if (error is EmptyResultSetException) {
                         remoteRepository.getWord(key, languageCode, word).flatMap { response ->
-                            println(response.def[0].tr[0].text)
                             localRepository.fetchWord(
                                 Converter.convertToWord(response.def[0].text),
                                 Converter.convertToMeanings(response)

@@ -22,5 +22,12 @@ class MainApplication : Application() {
             .build()
 
     }
+
+//    override fun onCreate() {
+//        super.onCreate()
+//        startKoin {
+//            modules(listOf(application, mainScreen, remoteData, localData, dataModule, api))
+//        }
+//    }
 }
 
