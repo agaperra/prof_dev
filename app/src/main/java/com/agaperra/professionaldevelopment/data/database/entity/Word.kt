@@ -9,5 +9,6 @@ data class Word(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "word")
     var word: String,
-    var ts: String
+    var ts: String,
+    var translate: String
 )

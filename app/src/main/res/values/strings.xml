@@ -8,6 +8,7 @@
     <string name="search_hint">Enter word…</string>
     <string name="word">Word</string>
     <string name="transcription">Transcription</string>
+    <string name="translation">Translation</string>
     <string name="meanings">Meanings</string>
     <string name="delete_description">X</string>
     <string name="image_stub">image</string>
