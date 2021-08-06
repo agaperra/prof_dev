@@ -2,7 +2,7 @@ package com.agaperra.professionaldevelopment.di.module
 
 import androidx.viewbinding.BuildConfig
 import com.agaperra.professionaldevelopment.data.network.api.ApiService
-import com.agaperra.professionaldevelopment.di.DaggerConstants
+import com.agaperra.professionaldevelopment.utils.Constants
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,7 +17,7 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideBaseUrl(): String = DaggerConstants.DICTIONARY_BASE_URL
+    fun provideBaseUrl(): String = Constants.DICTIONARY_BASE_URL
 
     @Singleton
     @Provides
