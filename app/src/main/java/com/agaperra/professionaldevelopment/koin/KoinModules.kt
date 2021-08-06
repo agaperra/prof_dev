@@ -31,11 +31,11 @@ val api = module {
     factory { provideDictionaryApi(retrofit = get()) }
 }
 
-val localDataModule = module {
+val localData = module {
     single { provideDictionaryDatabase(context = get()) }
 }
 
-val domainModule = module {
+val root = module {
     single<RemoteData> { DataSourceRemote(apiService = get()) }
     single<LocalData> { DataSourceLocal(db = get()) }
 
@@ -47,7 +47,7 @@ val domainModule = module {
     }
 }
 
-val presentationModule = module {
+val mainView = module {
     single<DictionaryInteractor<AppState>> {
         MainInteractor(
             remoteRepository = get(),

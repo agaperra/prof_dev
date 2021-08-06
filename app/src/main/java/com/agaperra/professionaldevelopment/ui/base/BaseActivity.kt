@@ -6,8 +6,6 @@ import com.agaperra.professionaldevelopment.ui.interactor.DictionaryInteractor
 
 abstract class BaseActivity<T : AppState, I : DictionaryInteractor<T>> : AppCompatActivity() {
 
-    abstract val model: BaseViewModel<T>
-
     abstract fun renderData(dataModel: T)
 
 }
