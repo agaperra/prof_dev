@@ -59,6 +59,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private fun setResult(dataModel: AppState.Success) {
         binding.tvWord.text = dataModel.data.word.word
+        binding.tvTranscription.text = dataModel.data.word.ts
         if(dataModel.data.meanings.isNotEmpty()) {
             meaningAdapter.updateList(dataModel.data.meanings)
             hideLoading()

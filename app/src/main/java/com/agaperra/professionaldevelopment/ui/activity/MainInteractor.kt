@@ -17,7 +17,7 @@ class MainInteractor (
             return try {
                 val response = remoteRepository.getWord(key, languageCode, word)
                 data = localRepository.fetchWord(
-                    Converter.convertToWord(response.def[0].text),
+                    Converter.convertToWord(response.def[0].text, response.def[0].ts),
                     Converter.convertToMeanings(response)
                 )
                 AppState.Success(data)

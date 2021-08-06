@@ -12,7 +12,6 @@ class MainViewModel (
     private val interactor: DictionaryInteractor<AppState>,
 ) : BaseViewModel<AppState>() {
 
-    private var appState: AppState? = null
     private var languageCode: String = "en-ru"
 
     override fun getData(word: String){

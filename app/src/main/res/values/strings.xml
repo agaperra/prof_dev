@@ -7,7 +7,7 @@
     <string name="button_search">Search</string>
     <string name="search_hint">Enter word…</string>
     <string name="word">Word</string>
-    <string name="translate">Translate</string>
+    <string name="transcription">Transcription</string>
     <string name="meanings">Meanings</string>
     <string name="delete_description">X</string>
     <string name="image_stub">image</string>

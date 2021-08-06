@@ -16,6 +16,6 @@ object Converter {
         return meanings
     }
 
-    fun convertToWord(word: String) =
-        Word(word)
+    fun convertToWord(word: String, ts: String) =
+        Word(word, ts)
 }
