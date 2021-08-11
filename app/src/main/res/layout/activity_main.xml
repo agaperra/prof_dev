@@ -13,16 +13,23 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/yandex"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
             android:text="@string/yandex"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tilSearchLayout"
+            app:layout_constraintStart_toStartOf="@+id/tilSearchLayout"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivYandex"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/yandex"
+            app:layout_constraintStart_toStartOf="@+id/yandex"
+            app:layout_constraintTop_toBottomOf="@+id/yandex" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSearchLayout"
@@ -30,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusTopEnd="20dp"
@@ -42,7 +49,7 @@
             app:endIconTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/yandex">
+            app:layout_constraintTop_toBottomOf="@id/ivYandex">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tieSearchView"
@@ -65,7 +72,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvErrorMessage" />
+            app:layout_constraintTop_toBottomOf="@+id/tilSearchLayout" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvWord"
@@ -77,6 +84,52 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/word" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/transcription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/transcription"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWord" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTranscription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/transcription" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/translation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/translation"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTranscription" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTranslation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/translation" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/meanings"
@@ -89,7 +142,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvWord" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTranslation" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressIndicator"
@@ -136,7 +189,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            app:constraint_referenced_ids="rvMeanings, meanings, tvWord, word" />
+            app:constraint_referenced_ids="tvTranslation, translation, rvMeanings, meanings, tvWord, word, tvTranscription, transcription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

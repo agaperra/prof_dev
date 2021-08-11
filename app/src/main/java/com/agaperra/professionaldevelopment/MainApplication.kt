@@ -1,28 +1,29 @@
 package com.agaperra.professionaldevelopment
 
 import android.app.Application
-import android.os.StrictMode
-import com.agaperra.professionaldevelopment.di.component.DaggerMainComponent
-import com.agaperra.professionaldevelopment.di.component.MainComponent
-import com.agaperra.professionaldevelopment.rx.SchedulerProvider
-import android.os.StrictMode.VmPolicy
+import com.agaperra.professionaldevelopment.koin.api
+import com.agaperra.professionaldevelopment.koin.localData
+import com.agaperra.professionaldevelopment.koin.mainView
+import com.agaperra.professionaldevelopment.koin.root
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 
 class MainApplication : Application() {
 
-    companion object {
-        lateinit var component: MainComponent
-    }
-
     override fun onCreate() {
         super.onCreate()
-
-        component = DaggerMainComponent
-            .builder()
-            .withContext(applicationContext)
-            .withSchedulers(SchedulerProvider)
-            .build()
-
+        startKoin {
+            androidContext(this@MainApplication)
+            modules(
+                listOf(
+                    mainView,
+                    root,
+                    localData,
+                    api
+                )
+            )
+        }
     }
 }
 

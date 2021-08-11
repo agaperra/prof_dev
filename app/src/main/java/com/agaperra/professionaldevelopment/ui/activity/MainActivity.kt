@@ -3,40 +3,34 @@ package com.agaperra.professionaldevelopment.ui.activity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.inputmethod.InputMethodManager
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.agaperra.professionaldevelopment.MainApplication
+import com.agaperra.professionaldevelopment.R
 import com.agaperra.professionaldevelopment.data.state.AppState
 import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
 import com.agaperra.professionaldevelopment.ui.base.BaseActivity
 import com.agaperra.professionaldevelopment.utils.Extensions.hide
 import com.agaperra.professionaldevelopment.utils.Extensions.show
-import javax.inject.Inject
+import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var meaningAdapter: MainAdapter
 
-
-    override val model: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-    }
-
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        MainApplication.component.inject(this)
-
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
         val mLink = binding.yandex
         mLink.movementMethod = LinkMovementMethod.getInstance()
-
+        Picasso.with(applicationContext).load("https://octavian48.ru/upload/iblock/df4/df4f7ad6adc88e74fadd6c26c3fe2ce1.png")
+            .placeholder(R.drawable.ic_baseline_image_not_supported_24).fit().centerInside()
+            .into(binding.ivYandex)
         initialize()
         setupListeners()
     }
@@ -51,7 +45,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
 
     private fun initialize() {
-        model.subscribe().observe(this, ::renderData)
+        mainViewModel.subscribe().observe(this, ::renderData)
 
         binding.rvMeanings.apply {
             layoutManager = LinearLayoutManager(context)
@@ -62,13 +56,15 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private fun setupListeners() {
         binding.tilSearchLayout.setEndIconOnClickListener {
-            model.getData(binding.tieSearchView.text.toString())
+            mainViewModel.getData(binding.tieSearchView.text.toString())
         }
 
     }
 
     private fun setResult(dataModel: AppState.Success) {
         binding.tvWord.text = dataModel.data.word.word
+        binding.tvTranscription.text = dataModel.data.word.ts
+        binding.tvTranslation.text = dataModel.data.word.translate
         if(dataModel.data.meanings.isNotEmpty()) {
             meaningAdapter.updateList(dataModel.data.meanings)
             hideLoading()
