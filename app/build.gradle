@@ -48,13 +48,14 @@ android {
 }
 
 dependencies {
-    // AndroidX
-    implementation Tools.multidex
 
     // Design
     implementation Design.constraint_layout
     implementation Design.appcompat
     implementation Design.material
+
+    // AndroidX
+    implementation Tools.multidex
 
     // Kotlin
     implementation Kotlin.core
