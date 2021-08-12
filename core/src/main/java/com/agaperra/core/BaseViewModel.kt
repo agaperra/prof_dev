@@ -1,4 +1,4 @@
-package com.agaperra.professionaldevelopment.ui.base
+package com.agaperra.core
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

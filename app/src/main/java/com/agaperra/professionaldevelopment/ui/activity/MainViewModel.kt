@@ -1,16 +1,14 @@
 package com.agaperra.professionaldevelopment.ui.activity
 
-import androidx.lifecycle.viewModelScope
 import com.agaperra.professionaldevelopment.BuildConfig
 import com.agaperra.professionaldevelopment.data.state.AppState
-import com.agaperra.professionaldevelopment.ui.base.BaseViewModel
-import com.agaperra.professionaldevelopment.ui.interactor.DictionaryInteractor
+import com.agaperra.core.viewmodel.BaseViewModel
+import com.agaperra.core.DictionaryInteractor
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainViewModel (
-    private val interactor: DictionaryInteractor<AppState>,
-) : BaseViewModel<AppState>() {
+    private val interactor: com.agaperra.core.DictionaryInteractor<AppState>,
+) : com.agaperra.core.viewmodel.BaseViewModel<AppState>() {
 
     private var languageCode: String = "en-ru"
 

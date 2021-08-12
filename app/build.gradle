@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
 
@@ -27,8 +27,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility Config.java_version
-        targetCompatibility Config.java_version
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -76,6 +76,7 @@ dependencies {
 
     // Room
     implementation Room.runtime
+    implementation project(path: ':core')
     kapt Room.compiler
     implementation Room.room_ktx
 
