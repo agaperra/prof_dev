@@ -57,6 +57,9 @@ dependencies {
     // Design
     implementation 'com.google.android.material:material:1.4.0'
 
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
     // Kotlin
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.10'

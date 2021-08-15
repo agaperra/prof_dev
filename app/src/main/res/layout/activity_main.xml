@@ -13,16 +13,23 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/yandex"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
             android:text="@string/yandex"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tilSearchLayout"
+            app:layout_constraintStart_toStartOf="@+id/tilSearchLayout"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivYandex"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/yandex"
+            app:layout_constraintStart_toStartOf="@+id/yandex"
+            app:layout_constraintTop_toBottomOf="@+id/yandex" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSearchLayout"
@@ -30,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusTopEnd="20dp"
@@ -42,7 +49,7 @@
             app:endIconTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/yandex">
+            app:layout_constraintTop_toBottomOf="@id/ivYandex">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tieSearchView"
