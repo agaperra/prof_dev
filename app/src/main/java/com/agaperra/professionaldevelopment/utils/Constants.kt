@@ -1,6 +1,6 @@
-package com.agaperra.professionaldevelopment.di
+package com.agaperra.professionaldevelopment.utils
 
-class DaggerConstants{
+class Constants{
     companion object{
         const val DICTIONARY_BASE_URL = "https://dictionary.yandex.net"
     }

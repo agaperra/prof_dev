@@ -6,24 +6,22 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.agaperra.professionaldevelopment.data.database.entity.Meaning
 import com.agaperra.professionaldevelopment.data.database.entity.Word
-import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface DictionaryDao {
     @Insert
-    fun insertWord(word: Word) : Completable
+    suspend fun insertWord(word: Word)
 
     @Insert
-    fun insertMeanings(meanings: List<Meaning>) : Completable
+    suspend fun insertMeanings(meanings: List<Meaning>)
 
     @Transaction
     @Query(value = "SELECT * FROM words WHERE word = :word")
-    fun getWordWithMeanings(word: String): Single<Word_Meaning>
+    suspend fun getWordWithMeanings(word: String): Word_Meaning
 
     @Query(value = "SELECT * FROM words WHERE word = :word")
-    fun getWords(word: String): Single<Word>
+    suspend fun getWords(word: String): Word
 
     @Query(value = "SELECT * FROM meanings WHERE parent_word = :word")
-    fun getMeanings(word: String): Single<Meaning>
+    suspend fun getMeanings(word: String): Meaning
 }

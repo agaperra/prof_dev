@@ -32,7 +32,6 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MeaningViewHolderImpl>() {
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newItems: List<Meaning>) {
         itemList.clear()
-        println(newItems)
         itemList.addAll(newItems)
         notifyDataSetChanged()
     }
