@@ -49,6 +49,9 @@ android {
 
 dependencies {
 
+    // Modules
+    implementation project(':core')
+
     // Design
     implementation Design.constraint_layout
     implementation Design.appcompat
