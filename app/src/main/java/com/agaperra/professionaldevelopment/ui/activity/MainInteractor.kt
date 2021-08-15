@@ -4,12 +4,12 @@ package com.agaperra.professionaldevelopment.ui.activity
 import com.agaperra.professionaldevelopment.data.repository.Converter
 import com.agaperra.professionaldevelopment.data.repository.DictionaryRepository
 import com.agaperra.professionaldevelopment.data.state.AppState
-import com.agaperra.core.DictionaryInteractor
+import com.agaperra.professionaldevelopment.ui.interactor.DictionaryInteractor
 
 class MainInteractor (
     private val remoteRepository: DictionaryRepository,
     private val localRepository: DictionaryRepository,
-) : com.agaperra.core.DictionaryInteractor<AppState> {
+) : DictionaryInteractor<AppState> {
 
     override suspend fun getWord(key: String, word: String, languageCode: String): AppState {
         var data = localRepository.getWord(word = word)

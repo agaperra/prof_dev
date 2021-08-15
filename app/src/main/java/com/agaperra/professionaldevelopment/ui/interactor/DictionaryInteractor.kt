@@ -1,4 +1,4 @@
-package com.agaperra.core
+package com.agaperra.professionaldevelopment.ui.interactor
 
 import com.agaperra.professionaldevelopment.data.state.AppState
 

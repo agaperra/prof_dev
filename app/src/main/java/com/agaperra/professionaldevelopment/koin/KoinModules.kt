@@ -14,7 +14,7 @@ import com.agaperra.professionaldevelopment.data.repository.DictionaryRepository
 import com.agaperra.professionaldevelopment.data.state.AppState
 import com.agaperra.professionaldevelopment.ui.activity.MainInteractor
 import com.agaperra.professionaldevelopment.ui.activity.MainViewModel
-import com.agaperra.core.DictionaryInteractor
+import com.agaperra.professionaldevelopment.ui.interactor.DictionaryInteractor
 import com.agaperra.professionaldevelopment.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,7 +48,7 @@ val root = module {
 }
 
 val mainView = module {
-    single<com.agaperra.core.DictionaryInteractor<AppState>> {
+    single<DictionaryInteractor<AppState>> {
         MainInteractor(
             remoteRepository = get(),
             localRepository = get()

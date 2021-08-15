@@ -76,7 +76,6 @@ dependencies {
 
     // Room
     implementation Room.runtime
-    implementation project(path: ':core')
     kapt Room.compiler
     implementation Room.room_ktx
 

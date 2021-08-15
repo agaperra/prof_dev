@@ -8,13 +8,14 @@ import com.agaperra.professionaldevelopment.R
 import com.agaperra.professionaldevelopment.data.state.AppState
 import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
-import com.agaperra.core.BaseActivity
+import com.agaperra.professionaldevelopment.ui.base.BaseActivity
 import com.agaperra.professionaldevelopment.utils.Extensions.hide
 import com.agaperra.professionaldevelopment.utils.Extensions.show
 import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : com.agaperra.core.BaseActivity<AppState, MainInteractor>() {
+class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
 
     private lateinit var binding: ActivityMainBinding
