@@ -1,3 +1,4 @@
 rootProject.name = "Professional Development"
 include ':app'
 include ':core'
+include ':model'

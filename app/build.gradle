@@ -51,6 +51,7 @@ dependencies {
 
     // Modules
     implementation project(':core')
+    implementation project(':model')
 
     // Design
     implementation Design.constraint_layout
