@@ -1,16 +1,22 @@
 package com.agaperra.professionaldevelopment.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agaperra.professionaldevelopment.R
 import com.agaperra.repository.state.AppState
 import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
+import com.agaperra.professionaldevelopment.koin.injectDependencies
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
 import com.agaperra.utils.Constants
 import com.agaperra.utils.Extensions.hide
 import com.agaperra.utils.Extensions.show
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,9 +27,12 @@ class MainActivity : com.agaperra.core.BaseActivity<AppState, MainInteractor>() 
     private lateinit var binding: ActivityMainBinding
     private lateinit var meaningAdapter: MainAdapter
 
+    private lateinit var splitInstallManager: SplitInstallManager
+
     private val mainViewModel: MainViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
         val mLink = binding.yandex
@@ -45,6 +54,7 @@ class MainActivity : com.agaperra.core.BaseActivity<AppState, MainInteractor>() 
 
 
     private fun initialize() {
+        injectDependencies()
         mainViewModel.subscribe().observe(this, ::renderData)
 
         binding.rvMeanings.apply {
@@ -58,10 +68,42 @@ class MainActivity : com.agaperra.core.BaseActivity<AppState, MainInteractor>() 
         binding.tilSearchLayout.setEndIconOnClickListener {
             mainViewModel.getData(binding.tieSearchView.text.toString())
         }
-//        binding.ivYandex.setOnClickListener {
+        binding.ivYandex.setOnClickListener {
+
+            splitInstallManager = SplitInstallManagerFactory.create(applicationContext)
+
+            val request =
+                SplitInstallRequest
+                    .newBuilder()
+                    .addModule(Constants.YANDEX_ACTIVITY_FEATURE_NAME)
+                    .build()
+
+            splitInstallManager
+                .startInstall(request)
+                // Добавляем слушатель в случае успеха
+                .addOnSuccessListener {
+                    // Открываем экран
+                    val intent = Intent().setClassName(packageName, Constants.YANDEX_ACTIVITY_PATH)
+                    startActivity(intent)
+                    val yandexDialogFragment = YandexDialogFragment.newInstance()
+                    yandexDialogFragment.setOnSearchClickListener(onSearchClickListener)
+                    yandexDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+                }
+                // Добавляем слушатель в случае, если что-то пошло не так
+                .addOnFailureListener {
+                    // Обрабатываем ошибку
+                    Toast.makeText(
+                        applicationContext,
+                        "Couldn't download feature: " + it.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+
+
 //            val yandexDialogFragment = YandexDialogFragment.newInstance()
 //            yandexDialogFragment.show(supportFragmentManager, Constants.BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
-//        }
+        }
 
     }
 

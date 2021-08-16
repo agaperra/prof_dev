@@ -10,10 +10,21 @@ import com.agaperra.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+fun injectDependencies() = loadModules
+
+private val loadModules by lazy {
+    loadKoinModules(listOf(mainView,
+        root,
+        localData,
+        api))
+}
+
 
 val api = module {
     single(named("BASE_URL")) { Constants.DICTIONARY_BASE_URL }
@@ -61,7 +72,7 @@ fun provideDictionaryDatabase(context: Context): com.agaperra.repository.databas
     .fallbackToDestructiveMigration()
     .build()
 
-fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
+fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
     OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }).build()
