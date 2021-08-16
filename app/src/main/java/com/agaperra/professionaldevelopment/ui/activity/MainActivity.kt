@@ -8,6 +8,7 @@ import com.agaperra.professionaldevelopment.R
 import com.agaperra.repository.state.AppState
 import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
+import com.agaperra.utils.Constants
 import com.agaperra.utils.Extensions.hide
 import com.agaperra.utils.Extensions.show
 import com.squareup.picasso.Picasso
@@ -57,6 +58,10 @@ class MainActivity : com.agaperra.core.BaseActivity<AppState, MainInteractor>() 
         binding.tilSearchLayout.setEndIconOnClickListener {
             mainViewModel.getData(binding.tieSearchView.text.toString())
         }
+//        binding.ivYandex.setOnClickListener {
+//            val yandexDialogFragment = YandexDialogFragment.newInstance()
+//            yandexDialogFragment.show(supportFragmentManager, Constants.BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+//        }
 
     }
 

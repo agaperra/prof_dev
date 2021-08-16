@@ -45,6 +45,8 @@ android {
         def app_id = properties.getProperty("key", "")
         it.buildConfigField "String", "key", app_id
     }
+
+    dynamicFeatures = [Modules.yandex_info]
 }
 
 dependencies {
@@ -60,7 +62,7 @@ dependencies {
     implementation Design.material
 
     // AndroidX
-    implementation Tools.multidex
+   // implementation Tools.multidex
 
     // Kotlin
     implementation Kotlin.core
@@ -88,6 +90,9 @@ dependencies {
 
     // Picasso
     implementation Picasso.picasso
+
+    // Play core
+    implementation Play.play_core
 
     // Test
     testImplementation TestImpl.junit
