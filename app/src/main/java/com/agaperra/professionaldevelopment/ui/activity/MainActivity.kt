@@ -85,9 +85,9 @@ class MainActivity : com.agaperra.core.BaseActivity<AppState, MainInteractor>() 
                     // Открываем экран
                     val intent = Intent().setClassName(packageName, Constants.YANDEX_ACTIVITY_PATH)
                     startActivity(intent)
-                    val yandexDialogFragment = YandexDialogFragment.newInstance()
-                    yandexDialogFragment.setOnSearchClickListener(onSearchClickListener)
-                    yandexDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+//                    val yandexDialogFragment = YandexDialogFragment.newInstance()
+//                    yandexDialogFragment.setOnSearchClickListener(onSearchClickListener)
+//                    yandexDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
                 }
                 // Добавляем слушатель в случае, если что-то пошло не так
                 .addOnFailureListener {

@@ -22,13 +22,5 @@
             </intent-filter>
         </activity>
     </application>
-    <dist:module
-        dist:instant="false"
-        dist:title="@string/yandex_info">
-        <dist:delivery>
-            <dist:on-demand />
-        </dist:delivery>
-        <dist:fusing dist:include="true" />
-    </dist:module>
 
 </manifest>

@@ -46,7 +46,7 @@ android {
         it.buildConfigField "String", "key", app_id
     }
 
-    dynamicFeatures = [Modules.yandex_info]
+    dynamicFeatures = [Modules.yandex]
 }
 
 dependencies {

@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.dynamic-feature'
     id 'kotlin-android'
-    id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -15,18 +15,8 @@ android {
         versionName Releases.version_name
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility Config.java_version
-        targetCompatibility Config.java_version
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -35,16 +25,17 @@ dependencies {
     // Modules
     implementation project(Modules.app)
 
-    // Design
-    implementation Design.constraint_layout
-    implementation Design.appcompat
-    implementation Design.material
-
     // Kotlin
     implementation Kotlin.core
     implementation Kotlin.stdlib
     implementation Kotlin.coroutines_core
     implementation Kotlin.coroutines_android
+
+    // Design
+    implementation Design.appcompat
+    implementation Design.material
+    implementation project(path: ':core')
+    implementation project(path: ':repository')
 
     // Test
     testImplementation TestImpl.junit
@@ -60,4 +51,15 @@ dependencies {
     implementation Room.runtime
     kapt Room.compiler
     implementation Room.room_ktx
+
+    // Koin for Android
+    implementation Koin.koin_core
+    implementation Koin.koin_android
+
+    // ViewModel Lifecycle
+    implementation Lifecycle.view_model
+}
+
+repositories {
+    mavenCentral()
 }

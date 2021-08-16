@@ -20,6 +20,7 @@ object Modules {
     const val repository = ":repository"
     const val utils = ":utils"
     const val yandex_info = ":yandex_info"
+    const val yandex = ":yandex"
 }
 
 object Plugins {

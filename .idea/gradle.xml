@@ -15,7 +15,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/repository" />
             <option value="$PROJECT_DIR$/utils" />
-            <option value="$PROJECT_DIR$/yandex_info" />
+            <option value="$PROJECT_DIR$/yandex" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

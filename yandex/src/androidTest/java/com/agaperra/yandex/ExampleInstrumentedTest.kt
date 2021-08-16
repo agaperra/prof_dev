@@ -1,4 +1,4 @@
-package com.agaperra.yandex_info
+package com.agaperra.yandex
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.agaperra.yandex_info.test", appContext.packageName)
+        assertEquals("com.agaperra.yandex.test", appContext.packageName)
     }
 }

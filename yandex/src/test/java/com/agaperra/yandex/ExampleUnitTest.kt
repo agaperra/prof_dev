@@ -1,4 +1,4 @@
-package com.agaperra.yandex_info
+package com.agaperra.yandex
 
 import org.junit.Test
 
