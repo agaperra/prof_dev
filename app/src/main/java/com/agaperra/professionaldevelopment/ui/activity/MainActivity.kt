@@ -5,17 +5,16 @@ import android.text.method.LinkMovementMethod
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agaperra.professionaldevelopment.R
-import com.agaperra.professionaldevelopment.data.state.AppState
+import com.agaperra.repository.state.AppState
 import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
-import com.agaperra.professionaldevelopment.ui.base.BaseActivity
-import com.agaperra.professionaldevelopment.utils.Extensions.hide
-import com.agaperra.professionaldevelopment.utils.Extensions.show
+import com.agaperra.utils.Extensions.hide
+import com.agaperra.utils.Extensions.show
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : BaseActivity<AppState, MainInteractor>() {
+class MainActivity : com.agaperra.core.BaseActivity<AppState, MainInteractor>() {
 
 
     private lateinit var binding: ActivityMainBinding

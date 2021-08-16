@@ -1,13 +1,17 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 dependencies {
 
-    // Modules
-    implementation project(Modules.utils)
-    implementation project(Modules.repository)
+    // Retrofit
+    implementation Retrofit.retrofit
+    implementation Retrofit.converter_gson
+    implementation Retrofit.adapter_coroutines
+    implementation Retrofit.logging_interceptor
 
     // Kotlin
     implementation Kotlin.core
@@ -18,6 +22,11 @@ dependencies {
     // Design
     implementation Design.appcompat
     implementation Design.material
+
+    // Room
+    implementation Room.runtime
+    kapt Room.compiler
+    implementation Room.room_ktx
 
     // Test
     testImplementation TestImpl.junit

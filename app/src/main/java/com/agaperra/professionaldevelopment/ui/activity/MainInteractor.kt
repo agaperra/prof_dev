@@ -1,15 +1,12 @@
 package com.agaperra.professionaldevelopment.ui.activity
 
 
-import com.agaperra.professionaldevelopment.data.repository.Converter
-import com.agaperra.professionaldevelopment.data.repository.DictionaryRepository
-import com.agaperra.professionaldevelopment.data.state.AppState
-import com.agaperra.professionaldevelopment.ui.interactor.DictionaryInteractor
+import com.agaperra.repository.state.AppState
 
 class MainInteractor (
-    private val remoteRepository: DictionaryRepository,
-    private val localRepository: DictionaryRepository,
-) : DictionaryInteractor<AppState> {
+    private val remoteRepository: com.agaperra.repository.repository.DictionaryRepository,
+    private val localRepository: com.agaperra.repository.repository.DictionaryRepository,
+) : com.agaperra.core.DictionaryInteractor<AppState> {
 
     override suspend fun getWord(key: String, word: String, languageCode: String): AppState {
         var data = localRepository.getWord(word = word)
@@ -17,8 +14,8 @@ class MainInteractor (
             return try {
                 val response = remoteRepository.getWord(key, languageCode, word)
                 data = localRepository.fetchWord(
-                    Converter.convertToWord(response.def[0].text, response.def[0].ts, response.def[0].tr[0].text),
-                    Converter.convertToMeanings(response)
+                    com.agaperra.repository.repository.Converter.convertToWord(response.def[0].text, response.def[0].ts, response.def[0].tr[0].text),
+                    com.agaperra.repository.repository.Converter.convertToMeanings(response)
                 )
                 AppState.Success(data)
             } catch (e: Exception) {

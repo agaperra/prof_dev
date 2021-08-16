@@ -27,8 +27,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility Config.java_version
+        targetCompatibility Config.java_version
     }
 
     kotlinOptions {
@@ -50,8 +50,9 @@ android {
 dependencies {
 
     // Modules
-    implementation project(':core')
-    implementation project(':model')
+    implementation project(Modules.core)
+    implementation project(Modules.utils)
+    implementation project(Modules.repository)
 
     // Design
     implementation Design.constraint_layout
@@ -67,6 +68,17 @@ dependencies {
     implementation Kotlin.coroutines_core
     implementation Kotlin.coroutines_android
 
+    // Retrofit
+    implementation Retrofit.retrofit
+    implementation Retrofit.converter_gson
+    implementation Retrofit.adapter_coroutines
+    implementation Retrofit.logging_interceptor
+
+    // Room
+    implementation Room.runtime
+    kapt Room.compiler
+    implementation Room.room_ktx
+
     // Koin for Android
     implementation Koin.koin_core
     implementation Koin.koin_android
@@ -74,20 +86,8 @@ dependencies {
     // ViewModel Lifecycle
     implementation Lifecycle.view_model
 
-    // Download images
     // Picasso
     implementation Picasso.picasso
-
-    // Room
-    implementation Room.runtime
-    kapt Room.compiler
-    implementation Room.room_ktx
-
-    // Retrofit
-    implementation Retrofit.retrofit
-    implementation Retrofit.converter_gson
-    implementation Retrofit.adapter_coroutines
-    implementation Retrofit.logging_interceptor
 
     // Test
     testImplementation TestImpl.junit
