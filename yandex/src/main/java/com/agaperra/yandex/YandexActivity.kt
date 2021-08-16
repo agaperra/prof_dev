@@ -12,6 +12,7 @@ class YandexActivity: AppCompatActivity() {
         setContentView(R.layout.yandex_layout)
         injectDependencies()
         yandexTV.text = resources.getString(R.string.yandexnv)
+        yandexInfo.text = resources.getString(R.string.yandexinfo)
     }
 
 }
