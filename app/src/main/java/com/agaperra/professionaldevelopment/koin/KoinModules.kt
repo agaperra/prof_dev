@@ -27,10 +27,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 fun injectDependencies() = loadModules
 
 private val loadModules by lazy {
-    loadKoinModules(listOf(mainView,
-        root,
-        localData,
-        api))
+    loadKoinModules(
+        listOf(
+            mainView,
+            root,
+            localData,
+            api
+        )
+    )
 }
 
 
@@ -46,27 +50,34 @@ val localData = module {
 }
 
 val root = module {
-    single<RemoteData> {
-        DataSourceRemote(
-            apiService = get()
-        )
+    scope(named<RemoteData>()) {
+        scoped {
+            DataSourceRemote(
+                apiService = get()
+            )
+        }
     }
-    single<LocalData> {
-        DataSourceLocal(
-            db = get()
-        )
+    scope(named<LocalData>()) {
+        scoped {
+            DataSourceLocal(
+                db = get()
+            )
+        }
     }
 
-    single<DictionaryRepository> {
-        DictionaryRepositoryImpl(
-            remoteDatasource = get(),
-            localDataSource = get()
-        )
+    scope(named<DictionaryRepository>()){
+        scoped{
+            DictionaryRepositoryImpl(
+                remoteDatasource = get(),
+                localDataSource = get()
+            )
+        }
     }
+
 }
 
 val mainView = module {
-    scope(named<MainActivity>()){
+    scope(named<MainActivity>()) {
         scoped {
             MainInteractor(
                 remoteRepository = get(),
@@ -77,10 +88,15 @@ val mainView = module {
     viewModel { MainViewModel(interactor = get()) }
 }
 
-fun provideDictionaryDatabase(context: Context): com.agaperra.repository.database.DictionaryDatabase = Room
-    .databaseBuilder(context, com.agaperra.repository.database.DictionaryDatabase::class.java, "dictionary_database")
-    .fallbackToDestructiveMigration()
-    .build()
+fun provideDictionaryDatabase(context: Context): com.agaperra.repository.database.DictionaryDatabase =
+    Room
+        .databaseBuilder(
+            context,
+            com.agaperra.repository.database.DictionaryDatabase::class.java,
+            "dictionary_database"
+        )
+        .fallbackToDestructiveMigration()
+        .build()
 
 fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
     OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
@@ -90,8 +106,10 @@ fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
     OkHttpClient.Builder().build()
 }
 
-fun provideDictionaryApi(retrofit: Retrofit): com.agaperra.repository.api.ApiService = retrofit.create(
-    com.agaperra.repository.api.ApiService::class.java)
+fun provideDictionaryApi(retrofit: Retrofit): com.agaperra.repository.api.ApiService =
+    retrofit.create(
+        com.agaperra.repository.api.ApiService::class.java
+    )
 
 fun provideRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
