@@ -2,10 +2,18 @@ package com.agaperra.professionaldevelopment.koin
 
 import android.content.Context
 import androidx.room.Room
+import com.agaperra.core.DictionaryInteractor
 import com.agaperra.professionaldevelopment.BuildConfig
+import com.agaperra.professionaldevelopment.ui.activity.MainActivity
 import com.agaperra.repository.state.AppState
 import com.agaperra.professionaldevelopment.ui.activity.MainInteractor
 import com.agaperra.professionaldevelopment.ui.activity.MainViewModel
+import com.agaperra.repository.datasource.DataSourceLocal
+import com.agaperra.repository.datasource.DataSourceRemote
+import com.agaperra.repository.datasource.LocalData
+import com.agaperra.repository.datasource.RemoteData
+import com.agaperra.repository.repository.DictionaryRepository
+import com.agaperra.repository.repository.DictionaryRepositoryImpl
 import com.agaperra.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,19 +46,19 @@ val localData = module {
 }
 
 val root = module {
-    single<com.agaperra.repository.datasource.RemoteData> {
-        com.agaperra.repository.datasource.DataSourceRemote(
+    single<RemoteData> {
+        DataSourceRemote(
             apiService = get()
         )
     }
-    single<com.agaperra.repository.datasource.LocalData> {
-        com.agaperra.repository.datasource.DataSourceLocal(
+    single<LocalData> {
+        DataSourceLocal(
             db = get()
         )
     }
 
-    single<com.agaperra.repository.repository.DictionaryRepository> {
-        com.agaperra.repository.repository.DictionaryRepositoryImpl(
+    single<DictionaryRepository> {
+        DictionaryRepositoryImpl(
             remoteDatasource = get(),
             localDataSource = get()
         )
@@ -58,11 +66,13 @@ val root = module {
 }
 
 val mainView = module {
-    single<com.agaperra.core.DictionaryInteractor<AppState>> {
-        MainInteractor(
-            remoteRepository = get(),
-            localRepository = get()
-        )
+    scope(named<MainActivity>()){
+        scoped {
+            MainInteractor(
+                remoteRepository = get(),
+                localRepository = get()
+            )
+        }
     }
     viewModel { MainViewModel(interactor = get()) }
 }

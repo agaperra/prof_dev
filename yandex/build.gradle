@@ -10,9 +10,6 @@ android {
 
     defaultConfig {
         minSdkVersion Config.min_sdk
-        targetSdkVersion Config.target_sdk
-        versionCode Releases.version_code
-        versionName Releases.version_name
     }
 
     buildFeatures {
