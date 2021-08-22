@@ -55,6 +55,8 @@ object Versions {
     // Koin
     const val koinCore = "3.1.2"
     const val koinAndroid = "3.1.2"
+    const val koinViewModel = "3.1.2"
+    const val koinCoreExt = "3.1.2"
 
     // Picasso
     const val picasso = "2.5.2"
@@ -107,6 +109,7 @@ object Lifecycle {
 object Koin {
     const val koin_core = "io.insert-koin:koin-core:${Versions.koinCore}"
     const val koin_android = "io.insert-koin:koin-android:${Versions.koinAndroid}"
+    const val koin_view_model = "io.insert-koin:koin-android-viewmodel:${Versions.koinViewModel}"
 }
 
 object Picasso {

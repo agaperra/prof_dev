@@ -2,18 +2,10 @@ package com.agaperra.professionaldevelopment.koin
 
 import android.content.Context
 import androidx.room.Room
-import com.agaperra.core.DictionaryInteractor
 import com.agaperra.professionaldevelopment.BuildConfig
 import com.agaperra.professionaldevelopment.ui.activity.MainActivity
-import com.agaperra.repository.state.AppState
 import com.agaperra.professionaldevelopment.ui.activity.MainInteractor
 import com.agaperra.professionaldevelopment.ui.activity.MainViewModel
-import com.agaperra.repository.datasource.DataSourceLocal
-import com.agaperra.repository.datasource.DataSourceRemote
-import com.agaperra.repository.datasource.LocalData
-import com.agaperra.repository.datasource.RemoteData
-import com.agaperra.repository.repository.DictionaryRepository
-import com.agaperra.repository.repository.DictionaryRepositoryImpl
 import com.agaperra.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -50,43 +42,34 @@ val localData = module {
 }
 
 val root = module {
-    scope(named<RemoteData>()) {
-        scoped {
-            DataSourceRemote(
+    single<com.agaperra.repository.datasource.RemoteData> {
+            com.agaperra.repository.datasource.DataSourceRemote(
                 apiService = get()
             )
-        }
-    }
-    scope(named<LocalData>()) {
-        scoped {
-            DataSourceLocal(
-                db = get()
-            )
-        }
     }
 
-    scope(named<DictionaryRepository>()){
-        scoped{
-            DictionaryRepositoryImpl(
+    single<com.agaperra.repository.datasource.LocalData> {
+            com.agaperra.repository.datasource.DataSourceLocal(
+                db = get()
+            )
+    }
+
+    single<com.agaperra.repository.repository.DictionaryRepository> {
+            com.agaperra.repository.repository.DictionaryRepositoryImpl(
                 remoteDatasource = get(),
                 localDataSource = get()
             )
-        }
     }
 
 }
 
 val mainView = module {
-    scope(named<MainActivity>()) {
-        scoped {
-            MainInteractor(
-                remoteRepository = get(),
-                localRepository = get()
-            )
-        }
+    scope<MainActivity>{
+        scoped { MainInteractor(localRepository = get(), remoteRepository = get()) }
+        viewModel { MainViewModel(interactor =  get()) }
     }
-    viewModel { MainViewModel(interactor = get()) }
 }
+
 
 fun provideDictionaryDatabase(context: Context): com.agaperra.repository.database.DictionaryDatabase =
     Room

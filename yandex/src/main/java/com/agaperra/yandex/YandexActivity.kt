@@ -10,7 +10,6 @@ class YandexActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.yandex_layout)
-        injectDependencies()
         yandexTV.text = resources.getString(R.string.yandexnv)
         yandexInfo.text = resources.getString(R.string.yandexinfo)
     }
