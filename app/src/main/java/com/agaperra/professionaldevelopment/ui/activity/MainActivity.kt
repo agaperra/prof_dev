@@ -8,12 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.Group
+import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
+import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.agaperra.core.BaseActivity
-import com.agaperra.core.DictionaryInteractor
 import com.agaperra.professionaldevelopment.R
-import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
 import com.agaperra.professionaldevelopment.koin.injectDependencies
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
 import com.agaperra.repository.state.AppState
@@ -21,19 +22,20 @@ import com.agaperra.utils.Constants
 import com.agaperra.utils.Extensions.hide
 import com.agaperra.utils.Extensions.show
 import com.agaperra.utils.Extensions.viewById
+import com.agaperra.utils.OnlineLiveData
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
+import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.squareup.picasso.Picasso
-import org.koin.android.ext.android.inject
 import org.koin.android.scope.AndroidScopeComponent
 import org.koin.android.scope.createScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 
 
@@ -51,6 +53,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>(), AndroidScopeCompo
     private val meanings by viewById<MaterialTextView>(R.id.meanings)
     private val rvMeanings by viewById<RecyclerView>(R.id.rvMeanings)
     private val tvErrorMessage by viewById<TextView>(R.id.tvErrorMessage)
+    private val tvErrorOnline by viewById<TextView>(R.id.tvErrorOnline)
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +88,15 @@ class MainActivity : BaseActivity<AppState, MainInteractor>(), AndroidScopeCompo
             layoutManager = LinearLayoutManager(context)
             meaningAdapter = MainAdapter()
             adapter = meaningAdapter
+        }
+
+        OnlineLiveData(
+            application = this@MainActivity.application
+        ).observe(this) { isAvailable ->
+            when (isAvailable) {
+                true -> connectionSnackBar.dismiss()
+                false -> connectionSnackBar.show()
+            }
         }
     }
 
@@ -153,6 +166,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>(), AndroidScopeCompo
             .hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 
         tvErrorMessage.hide()
+        tvErrorOnline.hide()
         groupResult.hide()
         progressIndicator.show()
     }
@@ -161,5 +175,15 @@ class MainActivity : BaseActivity<AppState, MainInteractor>(), AndroidScopeCompo
         progressIndicator.hide()
         groupResult.show()
     }
+
+    private val connectionSnackBar by lazy {
+        val constraintLayout by viewById<NestedScrollView>(R.id.constraintLayout)
+        Snackbar.make(
+            constraintLayout,
+            resources.getString(R.string.is_not_online),
+            Snackbar.LENGTH_INDEFINITE
+        )
+    }
+
 
 }
