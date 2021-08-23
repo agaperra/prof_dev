@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agaperra.core.BaseActivity
+import com.agaperra.core.DictionaryInteractor
 import com.agaperra.professionaldevelopment.R
 import com.agaperra.professionaldevelopment.databinding.ActivityMainBinding
 import com.agaperra.professionaldevelopment.koin.injectDependencies
@@ -23,6 +24,7 @@ import org.koin.android.ext.android.inject
 import org.koin.android.scope.AndroidScopeComponent
 import org.koin.android.scope.createScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 
 

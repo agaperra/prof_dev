@@ -2,16 +2,21 @@ package com.agaperra.professionaldevelopment.koin
 
 import android.content.Context
 import androidx.room.Room
+import com.agaperra.core.DictionaryInteractor
 import com.agaperra.professionaldevelopment.BuildConfig
 import com.agaperra.professionaldevelopment.ui.activity.MainActivity
 import com.agaperra.professionaldevelopment.ui.activity.MainInteractor
 import com.agaperra.professionaldevelopment.ui.activity.MainViewModel
+import com.agaperra.repository.repository.DictionaryRepository
+import com.agaperra.repository.state.AppState
 import com.agaperra.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
+import org.koin.core.scope.get
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,10 +26,10 @@ fun injectDependencies() = loadModules
 private val loadModules by lazy {
     loadKoinModules(
         listOf(
-            mainView,
             root,
             localData,
-            api
+            api,
+            mainView,
         )
     )
 }
@@ -65,8 +70,8 @@ val root = module {
 
 val mainView = module {
     scope<MainActivity>{
-        scoped { MainInteractor(localRepository = get(), remoteRepository = get()) }
-        viewModel { MainViewModel(interactor =  get()) }
+        scoped { MainInteractor(remoteRepository= get(), localRepository = get()) } bind DictionaryInteractor::class
+        viewModel { MainViewModel(interactor = get())}
     }
 }
 
