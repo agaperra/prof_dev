@@ -7,7 +7,14 @@ import com.agaperra.professionaldevelopment.BuildConfig
 import com.agaperra.professionaldevelopment.ui.activity.MainActivity
 import com.agaperra.professionaldevelopment.ui.activity.MainInteractor
 import com.agaperra.professionaldevelopment.ui.activity.MainViewModel
+import com.agaperra.repository.api.ApiService
+import com.agaperra.repository.database.DictionaryDatabase
+import com.agaperra.repository.datasource.DataSourceLocal
+import com.agaperra.repository.datasource.DataSourceRemote
+import com.agaperra.repository.datasource.LocalData
+import com.agaperra.repository.datasource.RemoteData
 import com.agaperra.repository.repository.DictionaryRepository
+import com.agaperra.repository.repository.DictionaryRepositoryImpl
 import com.agaperra.repository.state.AppState
 import com.agaperra.utils.Constants
 import okhttp3.OkHttpClient
@@ -47,20 +54,20 @@ val localData = module {
 }
 
 val root = module {
-    single<com.agaperra.repository.datasource.RemoteData> {
-            com.agaperra.repository.datasource.DataSourceRemote(
+    single<RemoteData> {
+            DataSourceRemote(
                 apiService = get()
             )
     }
 
-    single<com.agaperra.repository.datasource.LocalData> {
-            com.agaperra.repository.datasource.DataSourceLocal(
+    single<LocalData> {
+            DataSourceLocal(
                 db = get()
             )
     }
 
-    single<com.agaperra.repository.repository.DictionaryRepository> {
-            com.agaperra.repository.repository.DictionaryRepositoryImpl(
+    single<DictionaryRepository> {
+            DictionaryRepositoryImpl(
                 remoteDatasource = get(),
                 localDataSource = get()
             )
@@ -76,11 +83,11 @@ val mainView = module {
 }
 
 
-fun provideDictionaryDatabase(context: Context): com.agaperra.repository.database.DictionaryDatabase =
+fun provideDictionaryDatabase(context: Context): DictionaryDatabase =
     Room
         .databaseBuilder(
             context,
-            com.agaperra.repository.database.DictionaryDatabase::class.java,
+            DictionaryDatabase::class.java,
             "dictionary_database"
         )
         .fallbackToDestructiveMigration()
@@ -94,9 +101,9 @@ fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
     OkHttpClient.Builder().build()
 }
 
-fun provideDictionaryApi(retrofit: Retrofit): com.agaperra.repository.api.ApiService =
+fun provideDictionaryApi(retrofit: Retrofit): ApiService =
     retrofit.create(
-        com.agaperra.repository.api.ApiService::class.java
+        ApiService::class.java
     )
 
 fun provideRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()

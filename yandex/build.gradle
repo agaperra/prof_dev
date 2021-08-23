@@ -23,6 +23,7 @@ dependencies {
     implementation project(Modules.app)
     implementation project(path: ':core')
     implementation project(path: ':repository')
+    implementation project(Modules.utils)
     
     // Kotlin
     implementation Kotlin.core

@@ -16,6 +16,7 @@ dependencies {
     // Design
     implementation Design.appcompat
     implementation Design.material
+    implementation 'androidx.databinding:viewbinding:7.0.0'
 
     // Test
     testImplementation TestImpl.junit
