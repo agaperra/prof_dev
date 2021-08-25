@@ -1,6 +1,9 @@
 package com.agaperra.professionaldevelopment.ui.activity
 
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.inputmethod.InputMethodManager
@@ -12,7 +15,6 @@ import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.agaperra.core.BaseActivity
-import com.agaperra.professionaldevelopment.R
 import com.agaperra.professionaldevelopment.koin.injectDependencies
 import com.agaperra.professionaldevelopment.ui.adapter.MainAdapter
 import com.agaperra.repository.state.AppState
@@ -29,11 +31,15 @@ import com.google.android.material.textview.MaterialTextView
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import org.koin.android.scope.AndroidScopeComponent
 import org.koin.android.scope.createScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
+
+import androidx.core.graphics.drawable.DrawableCompat
+import com.agaperra.professionaldevelopment.R
 
 
 class MainActivity : BaseActivity<AppState, MainInteractor>(), AndroidScopeComponent {
@@ -61,9 +67,30 @@ class MainActivity : BaseActivity<AppState, MainInteractor>(), AndroidScopeCompo
         val iView by viewById<ImageView>(R.id.ivYandex)
         mLink.movementMethod = LinkMovementMethod.getInstance()
         Picasso.with(applicationContext)
-            .load("https://octavian48.ru/upload/iblock/df4/df4f7ad6adc88e74fadd6c26c3fe2ce1.png")
+            .load("https://en.itmo.ru/module/isu_image_par.php?PARTNERS_ID=1088")
             .placeholder(R.drawable.ic_baseline_image_not_supported_24).fit().centerInside()
-            .into(iView)
+            .into(iView, object : Callback {
+                override fun onSuccess() {
+                    when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            DrawableCompat.setTint(
+                                iView.drawable,
+                                applicationContext.resources.getColor(R.color.white)
+                            )
+                        } // Установлена тёмная тема
+                    }
+                }
+
+                override fun onError() {
+                    val constraintLayout by viewById<NestedScrollView>(R.id.constraintLayout)
+                    Snackbar.make(
+                        constraintLayout,
+                        resources.getString(R.string.is_not_online),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            })
+
         initialize()
         setupListeners()
     }
