@@ -27,4 +27,7 @@
     <string name="yandex"><a href="https://tech.yandex.ru/dictionary">Implemented using the service «Yandex.Dictionary»</a></string>
     <string name="yandex_info">Yandex Info</string>
     <string name="is_not_online">There is no internet connection</string>
+    <string name="is_no_filter">The filter was not applied</string>
+    <string name="options">Options</string>
+    <string name="switch_theme">Switch theme</string>
 </resources>
