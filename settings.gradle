@@ -1,2 +1,5 @@
 rootProject.name = "Professional Development"
 include ':app'
+include ':core'
+include ':utils'
+include ':repository'
