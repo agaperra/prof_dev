@@ -19,6 +19,8 @@ object Modules {
     const val core = ":core"
     const val repository = ":repository"
     const val utils = ":utils"
+    const val yandex_info = ":yandex_info"
+    const val yandex = ":yandex"
 }
 
 object Plugins {
@@ -67,6 +69,9 @@ object Versions {
     const val runner = "1.2.0"
     const val espressoCore = "3.2.0"
 
+    // Play core
+    const val playCore = "1.6.3"
+
 }
 
 
@@ -112,6 +117,10 @@ object Room {
     const val runtime = "androidx.room:room-runtime:${Versions.runtime}"
     const val compiler = "androidx.room:room-compiler:${Versions.roomCompiler}"
     const val room_ktx = "androidx.room:room-ktx:${Versions.roomKtx}"
+}
+
+object Play{
+    const val play_core = "com.google.android.play:core:${Versions.playCore}"
 }
 
 object TestImpl {

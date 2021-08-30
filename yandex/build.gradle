@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.dynamic-feature'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
+}
+
+android {
+    compileSdkVersion Config.compile_sdk
+
+    defaultConfig {
+        minSdkVersion Config.min_sdk
+        targetSdkVersion Config.target_sdk
+        versionCode Releases.version_code
+        versionName Releases.version_name
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    // Modules
+    implementation project(Modules.app)
+
+    // Kotlin
+    implementation Kotlin.core
+    implementation Kotlin.stdlib
+    implementation Kotlin.coroutines_core
+    implementation Kotlin.coroutines_android
+
+    // Design
+    implementation Design.appcompat
+    implementation Design.material
+    implementation project(path: ':core')
+    implementation project(path: ':repository')
+
+    // Test
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.runner
+    androidTestImplementation TestImpl.espresso
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // AndroidX
+    implementation Tools.multidex
+    implementation Design.appcompat
+
+    // Room
+    implementation Room.runtime
+    kapt Room.compiler
+    implementation Room.room_ktx
+
+    // Koin for Android
+    implementation Koin.koin_core
+    implementation Koin.koin_android
+
+    // ViewModel Lifecycle
+    implementation Lifecycle.view_model
+}
+
+repositories {
+    mavenCentral()
+}
