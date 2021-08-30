@@ -6,5 +6,9 @@ import com.agaperra.repository.state.AppState
 abstract class BaseActivity<T : AppState, I : DictionaryInteractor<T>> : AppCompatActivity() {
 
     abstract fun renderData(dataModel: T)
+    protected abstract val layoutRes: Int
+
+    protected var isNetworkAvailable: Boolean = true
+
 
 }

@@ -2,16 +2,28 @@ package com.agaperra.professionaldevelopment.koin
 
 import android.content.Context
 import androidx.room.Room
+import com.agaperra.core.DictionaryInteractor
 import com.agaperra.professionaldevelopment.BuildConfig
-import com.agaperra.repository.state.AppState
+import com.agaperra.professionaldevelopment.ui.activity.MainActivity
 import com.agaperra.professionaldevelopment.ui.activity.MainInteractor
 import com.agaperra.professionaldevelopment.ui.activity.MainViewModel
+import com.agaperra.repository.api.ApiService
+import com.agaperra.repository.database.DictionaryDatabase
+import com.agaperra.repository.datasource.DataSourceLocal
+import com.agaperra.repository.datasource.DataSourceRemote
+import com.agaperra.repository.datasource.LocalData
+import com.agaperra.repository.datasource.RemoteData
+import com.agaperra.repository.repository.DictionaryRepository
+import com.agaperra.repository.repository.DictionaryRepositoryImpl
+import com.agaperra.repository.state.AppState
 import com.agaperra.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
+import org.koin.core.scope.get
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,10 +31,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 fun injectDependencies() = loadModules
 
 private val loadModules by lazy {
-    loadKoinModules(listOf(mainView,
-        root,
-        localData,
-        api))
+    loadKoinModules(
+        listOf(
+            root,
+            localData,
+            api,
+            mainView,
+        )
+    )
 }
 
 
@@ -38,39 +54,44 @@ val localData = module {
 }
 
 val root = module {
-    single<com.agaperra.repository.datasource.RemoteData> {
-        com.agaperra.repository.datasource.DataSourceRemote(
-            apiService = get()
-        )
-    }
-    single<com.agaperra.repository.datasource.LocalData> {
-        com.agaperra.repository.datasource.DataSourceLocal(
-            db = get()
-        )
+    single<RemoteData> {
+            DataSourceRemote(
+                apiService = get()
+            )
     }
 
-    single<com.agaperra.repository.repository.DictionaryRepository> {
-        com.agaperra.repository.repository.DictionaryRepositoryImpl(
-            remoteDatasource = get(),
-            localDataSource = get()
-        )
+    single<LocalData> {
+            DataSourceLocal(
+                db = get()
+            )
     }
+
+    single<DictionaryRepository> {
+            DictionaryRepositoryImpl(
+                remoteDatasource = get(),
+                localDataSource = get()
+            )
+    }
+
 }
 
 val mainView = module {
-    single<com.agaperra.core.DictionaryInteractor<AppState>> {
-        MainInteractor(
-            remoteRepository = get(),
-            localRepository = get()
-        )
+    scope<MainActivity>{
+        scoped { MainInteractor(remoteRepository= get(), localRepository = get()) } bind DictionaryInteractor::class
+        viewModel { MainViewModel(interactor = get())}
     }
-    viewModel { MainViewModel(interactor = get()) }
 }
 
-fun provideDictionaryDatabase(context: Context): com.agaperra.repository.database.DictionaryDatabase = Room
-    .databaseBuilder(context, com.agaperra.repository.database.DictionaryDatabase::class.java, "dictionary_database")
-    .fallbackToDestructiveMigration()
-    .build()
+
+fun provideDictionaryDatabase(context: Context): DictionaryDatabase =
+    Room
+        .databaseBuilder(
+            context,
+            DictionaryDatabase::class.java,
+            "dictionary_database"
+        )
+        .fallbackToDestructiveMigration()
+        .build()
 
 fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
     OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
@@ -80,8 +101,10 @@ fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG) {
     OkHttpClient.Builder().build()
 }
 
-fun provideDictionaryApi(retrofit: Retrofit): com.agaperra.repository.api.ApiService = retrofit.create(
-    com.agaperra.repository.api.ApiService::class.java)
+fun provideDictionaryApi(retrofit: Retrofit): ApiService =
+    retrofit.create(
+        ApiService::class.java
+    )
 
 fun provideRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())

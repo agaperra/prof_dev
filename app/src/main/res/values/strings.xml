@@ -26,4 +26,5 @@
     <string name="error_message">The word was not found</string>
     <string name="yandex"><a href="https://tech.yandex.ru/dictionary">Implemented using the service «Yandex.Dictionary»</a></string>
     <string name="yandex_info">Yandex Info</string>
+    <string name="is_not_online">There is no internet connection</string>
 </resources>
